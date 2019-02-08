@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>LAP ScanLogin</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="instascan.min.js"></script>
+        <video id="preview"></video>
+        <script type="text/javascript">
+          let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+          scanner.addListener('scan', function (content) {
+            console.log(content);
+            document.write(content);
+          });
+          Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+              scanner.start(cameras[0]);
+            } else {
+              console.error('No cameras found.');
+              document.write('No cameras found.');
+            }
+          }).catch(function (e) {
+            console.error(e);
+            document.write('error');
+          });
+        </script>
+    </body>
+</html>
